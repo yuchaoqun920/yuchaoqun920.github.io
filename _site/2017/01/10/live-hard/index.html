@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="">
+    <meta name="theme-color" content="#000000">
+    
+    <title>拼命活着 - 余超群的博客 | Yuchaoqun Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2017/01/10/live-hard/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <!-- mathjax support -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+    }
+    });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yuchaoqun Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-2015.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#思考" title="思考">思考</a>
+                        
+                    </div>
+                    <h1>拼命活着</h1>
+                    
+                    
+                    <h2 class="subheading"> "live hard"</h2>
+                    
+                    <span class="meta">Posted by 余超群 on January 10, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<p><strong>对于时间的感知</strong><br />
+2017就这么来了，跨年前的几个小时，献给了罗振宇“时间的朋友”跨年演讲。或许只有在新年来临的时候，人们对于时间的感知会更强烈一些。而跨年演讲的现场，上万人聚集在某个地方，一起跨年，恐怕也无非是：</p>
+<blockquote>
+  <p>在时间的长河当中给自己找一个时间的标识。</p>
+</blockquote>
+
+<p>对于时间的感知，脑科学家或许也只是发现海马体跟人类对于时间和事件先后次序的记忆有关，但人脑是如此复杂，以至于我们永远也搞不明白其工作方式。随着年岁的增长，总感觉时间过得越来越快了，不久前的三十岁的生日对我的感觉也是如此。二十五岁时的一幕幕还在眼前，那时的我还思考着：25岁到35岁是一个男人身体和精神状态处于巅峰的十年。我满脑子憧憬着自己要做的事，精彩而丰富的人生经历，黄金十年。然而不经意间，黄金十年已然过去一半，二十几岁的岁月就这么一去不复返了。或许我们七老八十时，我们还是如此感叹，整个人生怎么就如白驹过隙，一去不复返呢……</p>
+
+<p>让我想到一部电影《sleeping beauty》（2011）中一段老人的独白，电影的末尾他选择了用安眠药了结自己的一生。以下把台词摘录如下（总感觉翻译不一定恰当，还特地找了英文版对照，感兴趣的可以点击下面的链接去优酷感受一下位置42:00，当然优酷删减得比较严重）：</p>
+
+<p><a href="http://v.youku.com/v_show/id_XODM5MjEyNjk2.html?spm=a2h0j.8191423.0.0.SspBsT">睡美人</a><br />
+<img src="https://github.com/yuchaoqun920/nbin30s/raw/master/1/206369505960042442.jpg" alt="" /></p>
+<blockquote>
+
+  <p>几个月前，发生了件奇怪的事<br />
+A few months ago a strange thing happened.<br />
+我在书架中随意翻看些东西，看见一本书，是我一次生日的时候，我哥哥送的，一本短篇小说集<br />
+I was idling through my bookshelves when I noticed a book my brother had once given me for my birthday - a collection of short stories<br />
+于是，我开始重读其中的一篇<br />
+Well, I started to reread one of those stories<br />
+讲的是一个人，某天早上醒来，就没法自己起床了<br />
+it was about a man who one morning wakes up and can not bring him to get out of bed<br />
+他出于自我防卫心理闭上了眼<br />
+he shuts his eyes in self defense  <br />
+他重新审视了自己的生活，陷入了坐立不安的境地<br />
+he reexamines his life, ceased in the restless<br />
+他收拾好行李，抛却了一切束缚<br />
+He packs his bags, cuts all ties<br />
+他已经无法在熟人圈中继续生活了，他们抛弃了他<br />
+he can no longer live among the people he knows. They paralyze him<br />
+他很富有，于是去了罗马<br />
+He’s monied. He goes to Rome <br />
+他希望像根系一样深深埋在那里<br />
+He wants to burrow under the Earth like a bulb, like a root<br />
+但是即便在罗马，他也避不开那些认识的人<br />
+But even in Rome he cannot escape people from his former life. <br />
+于是他决定回到那个从小长大的城市去，那个很难称之为“家”的地方<br />
+So, he decides to return to the city where he was born and educated but which he can’t quite bring himself to call home<br />
+搬家毫无作用<br />
+Well, the move doesn’t help<br />
+他觉得除非是落叶归根，否则没资格回去<br />
+He feels he has no more right to return than a dead man<br />
+他能做什么呢？他渴求能彻底解决这个难题<br />
+What can he do? He desires an extreme solution to his conundrum<br />
+他所渴望的无非是一个新世界，新方式<br />
+He aches for nothing less than a new world, a new language<br />
+一切都如过去一样<br />
+Nothing changes<br />
+出于他们的冷漠，他也想不出更好的办法<br />
+Out of indifference - and because he can’t think of anything better to do -<br />
+他决心再一次离开家乡，去搭车<br />
+he decides once more to leave his hometown, to do some hitching <br />
+一个男人让他上了车，他们驶入了夜色中<br />
+a man picks him up, they ride off into the night <br />
+‘彭’地一声，车撞到了墙上<br />
+when BANG, the car smacks into a wall<br />
+司机死了，而我们的主角因骨折住院了<br />
+The driver dies, our man is hospitalized, broken up<br />
+几个月后，他的伤好了<br />
+Months pass, his wounds heal<br />
+现在他渴望生活<br />
+Now he wishes for life<br />
+他有自信了，对无需解释的事也有信心了<br />
+He has a confidence in himself, in things he doesn’t have to explain<br />
+这些东西就像毛孔一般，触手可及<br />
+things like the pores in his skin - all things corporeal<br />
+他迫不及待地要离开医院，远离这些病患<br />
+He can’t wait to get out of the hospital, away from the infirm and the moribund<br />
+“我跟你说，站起来走走，你并没有骨折”
+“I say unto thee, rise up and walk. None of your bones are broken.” 
+故事结束
+The end. 
+我重读这些文字的时候
+When I reread those words 
+“站起来走走，你并没有骨折”
+“Rise up and walk. None of your bones are broken”<br />
+我感到了莫大的悲哀
+I felt a tremendous sadness<br />
+你知道这个故事的开篇是什么吗？<br />
+Do you know what the opening line of the story is? <br />
+“人到了30多岁时，大家仍会叫他年轻人”<br />
+When a man enters his thirtieth year people will not stop calling him young<br />
+30岁<br />
+Thirty<br />
+这本书是我30岁的生日礼物<br />
+I’d been given the book for my thirtieth birthday<br />
+巴赫曼的《三十而立》<br />
+“The Thirtieth Year” by Ingeborg Bachmann<br />
+我有所耳闻的<br />
+So I had heard<br />
+还有大家告诫我的<br />
+I had been told<br />
+我早就知道，虽然我不见得理解<br />
+I knew all along even if I didn’t really know - <br />
+真正的真相并不惊人<br />
+the great true things are unsurprising<br />
+但是我那时做了些什么呢？<br />
+But what did I do back then?<br />
+我尽力维持<br />
+I carried on<br />
+我忠诚地维持下去<br />
+I carried on dutifully <br />
+至少外人看来，我和伊丽莎白是幸福的一对<br />
+We were the happy couple, Elizabeth and I. That’s how people saw us<br />
+但实际上，我并未珍惜我的妻子<br />
+But in truth, I did not cherish my wife <br />
+也没有珍惜我的朋友<br />
+And I did not cherish my friends<br />
+甚至我的小孩<br />
+or even my children<br />
+我只是尽力维持<br />
+I just carried on<br />
+我是个成功人士<br />
+I was a success<br />
+我成功地闯出一条路<br />
+I made my way <br />
+但是我每一步都战战兢兢，采取守势<br />
+But with each step I cringed. I was on the backfoot, the defensive<br />
+而现在<br />
+And now<br />
+今晚，我第一次说<br />
+tonight, for the first time I say<br />
+我的骨头已破碎了<br />
+“my bones are broken.”<br />
+破碎了<br />
+Broken<br />
+总有一天我会需要你的帮助的<br />
+ One day I will need your help<br />
+我整个身体都已破碎<br />
+All of my bones are broken</p>
+</blockquote>
+
+<p><img src="https://github.com/yuchaoqun920/nbin30s/raw/master/1/283343934177357001.jpg" alt="" /></p>
+
+<p>说实话，当我走过三十岁这个门槛的时候，一种不知所措的慌乱将我笼罩。我不希望回忆自己的人生时，仅剩下勉力维持（carried on）。<br />
+当我重新打开这段视频，重新阅读这段文字时，我仿佛沉睡许久的人突然惊醒，我渴望每一口呼吸带来的空气温度，我渴望每一次心跳时的血液流动的质感，我渴望生活。经过很长一段时间的深入思考，我对自己的提了一个要求：<strong>拼命活着</strong>。</p>
+<blockquote>
+  <p>所谓拼命活着，就是不断觉知自己活着的状态，拼尽全力去做每一件想做的事情。</p>
+</blockquote>
+
+<p>这是我最开始的认知，然而这样的表述并不足够清晰准确。“任何概念，必须有清晰、准确的定义，才具有指导意义”。</p>
+
+<p>于是我又接着思考，什么叫活着。当我看着刚满11个月的女儿，就更加明白什么是活着的生命力了。当她对什么感兴趣时，就会瞪大眼睛，微张着小嘴，那小表情深深地刻入我的记忆中。她对这个世界充满好奇，以我们难以想象的速度成长着。活着最基础的特征不就是好奇心和求知欲嘛。</p>
+
+<p>那活着的意义又是什么，这是一个太大的问题，我无法有完全正确的答案。而我的理解就是，活着本身并没有任何意义，意义是活出来的。我们活着时对这个世界产生的一点点影响，结交的每一个知心的朋友，与家人产生的纽带，所有的这一切累加出来对“我”这个个体的意义。当我们临死时，回忆起度过的这一生，眼前闪过的也会是一幕幕记忆，一个个亲人朋友的样子。我希望所有的值得记忆的一幕幕，如同珍珠一般闪亮，会让我无悔这一生的艰辛和付出。我想把这些记忆定义为<strong>时间的印记</strong>。</p>
+
+<p>那什么叫拼命。使尽全身的力气，那种使劲的感觉？那如何使劲才叫拼命呢，我们无法定义。于是我从时间的维度来看这个问题，我们每一天的时间，或者说注意力是有限的，那拼命或许可以理解为珍惜自己的每一分注意力，每一丁点时间的态度。</p>
+
+<p>于是<strong>拼命活着</strong>的定义演变成：</p>
+<blockquote>
+  <p>珍惜自己的每一分注意力和时间，保持好奇，不断学习，在生命中雕刻足够多闪亮的时间的印记。</p>
+</blockquote>
+
+<p>当我思考到这里的时候，我不禁会想，要是我在二十几岁的时候就能有这样的认知水平，那该多好。</p>
+
+<blockquote>
+  <p>开始认知升级最好的时间是很久以前，其次是现在。</p>
+</blockquote>
+
+<p>在新的2017年，我希望践行自己对拼命活着的认知，保持好奇心，努力去学习尝试很多东西。</p>
+
+<p><strong>我为什么要写这个公众号</strong></p>
+
+<p>2017年的前一天，我开通了这个公众号。我希望借此分享成长的欣喜，或许有些二十几岁的同学，会因为看到我的文字，也开始思考我三十岁思考过的问题，有了不同的感悟。 这是我写公众号的第一个目的。</p>
+
+<p>通过持续性的写作，将自己的思考表达出来，进而打磨自己的逻辑思维，深入思考的能力，最终达到认知升级。这是我的第二个目的，毕竟认知升级是需要我们毕生修习的功课。</p>
+
+<p>当你看到这段文字，因为其中的任何一点开启思考，那么请告诉我，我们可以组建一个圈子，共同成长。这也是我的第三个目的。</p>
+
+<p>PS. 
+我不确定巴赫曼的《三十而立》（“The Thirtieth Year” by Ingeborg Bachmann ）这本书是否真是这么描述这个故事的，有看到这本书的朋友告诉我一下。</p>
+
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/02/03/wisdom-in-machine-learning/" data-toggle="tooltip" data-placement="top" title="聊聊机器学习中的人生智慧">
+                        Next<br>
+                        <span>聊聊机器学习中的人生智慧</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href=""></a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "yuchaoqunblog";
+    var disqus_identifier = "/2017/01/10/live-hard";
+    var disqus_url = "http://localhost:4000/2017/01/10/live-hard/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/chase_yee">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/yuchaoqun920">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/yuchaoqun920">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/yuchaoqun920">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yuchaoqun Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-103555393-1';
+    var _gaDomain = 'yuchaoqun.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

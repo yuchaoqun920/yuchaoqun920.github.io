@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="">
+    <meta name="theme-color" content="#000000">
+    
+    <title>聊聊机器学习中的人生智慧 - 余超群的博客 | Yuchaoqun Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2017/02/03/wisdom-in-machine-learning/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <!-- mathjax support -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+    }
+    });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yuchaoqun Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-os-metro.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-os-metro.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#ML" title="ML">ML</a>
+                        
+                        <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+                        
+                    </div>
+                    <h1>聊聊机器学习中的人生智慧</h1>
+                    
+                    
+                    <h2 class="subheading"> "wisdom in machine learning"</h2>
+                    
+                    <span class="meta">Posted by 余超群 on February 3, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="机器学习中的人生智慧">机器学习中的人生智慧</h2>
+<p>在学习机器学习的过程中，我曾不止一次地惊呼：“真是赚到了”！单是从中学到的人生智慧，就已经觉得所得匪浅。
+以下是我的几点感悟。</p>
+
+<p>###概率视角<br />
+机器能够理解什么? 只有数字。从机器的视角观察这个世界，我们会发现“<strong>一切事件的本质皆是概率</strong>”。<br />
+####1.一切皆是概率</p>
+<blockquote>
+  <p>小到彩票是否中奖，<br />
+明天是否下雨，<br />
+集五福是否值得，<br />
+或是打麻将应采取什么策略，<br />
+大到人生选择，<br />
+高考会不会中榜，<br />
+会跟谁结婚，<br />
+该不该买房，<br />
+会不会出任CEO，迎娶白富美，登上人生巅峰，<br />
+这一切都是概率事件。</p>
+</blockquote>
+
+<p>当你计算过中彩票的概率和期望，自然不会把成为人生赢家的胜算都压在上面。当你发现集齐五福的人数已经超过两千万，大家一起瓜分两个亿，期望不到10块钱时，那又何必那么费劲，群里抢个红包都比这个大。<br />
+当有人看到北大的毕业生卖猪肉的新闻说：读书也没什么用。你也会有清晰的判断，读书只是增加你成功概率而已，北大毕业总体比普通学校毕业成功的概率更高。真正要做的不是去否定读书的价值，而是去思考如何提高自身的成功概率。当你认识到人生的际遇其实都是概率事件时，在低谷时也就不会自怨自艾，努力没有回报也不会灰心丧气，只会努力把自己准备得更好。<br />
+<strong>人生本来就是一个个概率事件嘛</strong>。<br />
+看待问题的视角转变之后，所有一切都不再是困扰，也不会有抱怨。如果我们把成功的目标变成不断增加自己的成功概率，那唯一的策略就是不断成长。这其实也是AlphaGo强大的原因，因为AlphaGo下每一步棋时，关注就是这步棋是否能使自己的胜率最大。<br />
+####2.主观概率
+概率论带给我的第二个思考是：<strong>概率的量化表达可以帮助我们更清晰准确地分析问题</strong>。
+以前的经典天气预报就是：明天阴有时有阵雨，局部地区大到暴雨。一堆不确定性累加在一起，让人无法决策，这个信息也就失去了参考价值。现在的天气预报更多的用降水概率等量化指标来描述，于是更精确，更容易理解。这是概率事件，出现小概率事件也是有可能的，而不能说天气预报错了是吧。这也许也是气象预报部门的智慧。
+那我们对于任何事情发生的相信程度也可以用主观概率来表达。</p>
+<blockquote>
+  <p>主观概率：如果用一个数字形式的概率来表示自己对某事的确认程度，所用的就是主观概率。</p>
+</blockquote>
+
+<p>罗胖（罗辑思维罗振宇）曾做过一期节目，驳斥中医的科学性。后来他在一期节目中表示，他相信中医的主观概率是5%。也就是说，如果得了不治之症，他还是愿意尝试一下的。<br />
+而我对于中医的主观概率或许是85%。因为我觉得中医不在科学的边界之内，而不能说其不科学。（科学的边界是<strong>可以证伪</strong>，任何不可证伪的理论都不属于科学，比如上帝是否存在的论断。）而我是实用主义者，以我的人生经验，我会把相信中医的主观概率设定得比较高。<br />
+有了主观概率，跟人讨论也会更加容易，而不至于使用“可能”，“可能性更大”，“极不可能”，“可能不”，“不可能”，“肯定”这些模糊的字眼。</p>
+
+<p>####3.贝叶斯学派<br />
+想到要讨论贝叶斯，其实我是拒绝的，有人甚至花一整本书的篇幅来讲这个话题，而我要如何在这么一篇粗浅的文章中写明白。
+先抛出一个问题吧：</p>
+<blockquote>
+  <p>有一个硬币，连续抛了32次，出现了32次正面。那抛第33次，你会预测出现哪一面？概率又是多大？（假设每一次抛硬币都是独立事件）</p>
+</blockquote>
+
+<p>不同的视角有不同的看法，这里会出现<strong>频率学派</strong>和<strong>贝叶斯学派</strong>颇为不同的观点。<br />
+频率学派认为抛硬币出现正面的概率是固定的，那么不管是第一次还是第33次，出现正面的概率都是一样的，这个概率可能就是50%。但如果我们不知道这个概率，那频率学派就有点无能为力了。<br />
+而贝叶斯学派则认为，抛硬币出现正面的概率本身是一个概率分布。我们事先不知道硬币的概率，但是我们可以假定其出现正面的概率是50%，然后我们根据观测结果不断修正这个概率。当抛硬币这个独立事件出现32次正面0次反面，那我们完全有理由推断这枚硬币并不是均匀的（或是被做过手脚）。<br />
+如果我们使用极大似然估计来估计出现正面的概率：<br />
+<script type="math/tex">P(Y=c_k)=\frac{\sum_{i=1}^{N}I(y_i=c_k)}{N}</script><br />
+那么出现正面的概率等于1，以此预测第33次仍是出现正面。</p>
+
+<p>另有贝叶斯估计：
+<script type="math/tex">P(Y=c_k)=\frac{\sum_{i=1}^{N}I(y_i=c_k)+\lambda}{N+\lambda K}</script><br />
+其中N是总样本数，K是Y的类别数，比如抛硬币的问题K=2。
+贝叶斯估计为了修正最大似然估计可能出现0概率的问题，增加了λ这个参数。常取λ=1，此时称为拉普拉斯平滑。</p>
+
+<script type="math/tex; mode=display">P(Y=正面)=\frac{\sum_{i=1}^{N}I(y_i=正面)+1}{N+K}=\frac{32+1}{32+2}=0.97</script>
+
+<p>如此看来，贝叶斯估计不至于极端地认为出现正面的概率为1，而是根据实际观测结果来给出0.97的概率。<br />
+贝叶斯学派在实际应用中的价值在于，现实生活中的概率事件，我们无法确知其概率，那贝叶斯利用观察到的结果来估计就显得意义重大了。当我们有足够的观测数据，贝叶斯估计得到的概率也就接近于实际数值了。<br />
+其实贝叶斯定理本身这个公式是非常简单：</p>
+
+<p><script type="math/tex">P(A|B)=\frac{P(B|A)P(A)}{P(B)}</script><br />
+其中P(B)可以用全概率公式计算：<br />
+<script type="math/tex">P(B)=\sum_{A}^{}P(B|A)P(A)</script></p>
+
+<p><script type="math/tex">P(Y=c_j|X=x_k)=\frac{P(X=x_k|Y=c_j)P(Y=c_j)}{\sum_{i=1}^{K}P(X=x_i|Y=c_j)P(Y=c_j)}</script> <br />
+<img src="https://github.com/yuchaoqun920/nbin30s/raw/master/3/bayes_equation.jpg" alt="" />
+但是想把贝叶斯讲清楚，却非常不易，于是我也就只能写到这个程度了。贝叶斯真的是一个太强大的工具，在垃圾邮件识别和自然语言处理领域强大得无以伦比，甚至语音识别中的隐马尔科夫模型（HMM）也是一个层级贝叶斯模型。感兴趣可以阅读专门讲解贝叶斯的文章，请见文末的参考链接。</p>
+
+<p>###模型和神经网络
+从机器的视角看，世间万物都是模型。</p>
+<blockquote>
+  <p>所谓模型，就是给一定的输入，生成一定的输出。<br />
+传统的模型给定固定输入，输出是一定的，比如逻辑门电路，比如手机的UI，比如计算机。但是人这个模型，你给定一样的输入，没准输出完全不同甚至相反。因为这个模型是概率模型，并不绝对。
+神经网络很大一部分参照人类大脑的基本原理来工作，到后来又有了深度神经网络，再到后来每个神经元有一定的机率dropout，给定相同的输入没准有不同的结果，于是跟人类大脑的工作模式越来越像。
+理解了神经网络的工作原理，我们去理解一个小孩从出生到长大成人的过程，是不是就容易多了。新生的婴儿跟一张白纸一样，当然有先天的遗传和性格。然后在环境中不断塑造，慢慢变成了后来的样子。当TA在学步，就是神经网络慢慢建立连接并不断强化的过程。婴儿在快速成长之后，有一个神经元连接变少的过程，这其实跟决策树的剪枝原理差不多，过于复杂的连接容易过拟合，而不具备通用性。于是生物就自然演化具备这个过程。想想也是蛮神奇的。<br />
+当你明白了所有这些。你会发现你就是独特的你，永远不可复制，因为你是你的遗传基因在后天这个独一无二的环境中成长起来的。人类的大脑是慢慢学习使得神经元产生连接，这连接想要直接复制，估计难度那叫一个大。所以期望复制大脑实现永生，就不要抱太大希望。就算能完整复制，这个复制的人，没有经历过你所经历的一切，当TA醒来的一瞬间跟你看到的就不一样，ta其实是另外一个人，而不是你。记得《生死课》里比较认同的一个观点：“我”这个个体，是在连续的时间和空间中存在的。不管是空间还是时间只要有一个不是连续的，那就无法再定义成“我”了。所以这种方式的永生只是神话。
+所以另外的一个启示，如何让小孩长成你设想的样子，给TA塑造一个环境，给TA“正确”的反馈，包括以身作则，用实际行动给TA足够的输入，慢慢就会养成你想要的样子。
+女朋友也一样，你要足够积极的反馈，她才会越来越温柔，当然对于女朋友这种太过复杂的模型，我不敢保证，训练模型的过程中请千万注意人身安全。</p>
+</blockquote>
+
+<p>对于我们自己的成长，我们要用足够的实践去训练自己的模型变得更加强大。甚至学习过程也可以套用机器学习的思路：<strong>给定一个优化目标，在实践中积累经验不断优化这个目标。</strong></p>
+<blockquote>
+  <p>第一目标必须清晰准确容易衡量；<br />
+第二要通过实践积累经验；<br />
+第三要利用经验中的反馈不断优化目标；</p>
+</blockquote>
+
+<p>三者缺一不可，当你在实践，但只是重复劳动，并没有去优化目标，那自然是不会有进步的。于是此处可以再次强调<strong>刻意练习</strong>的力量。</p>
+
+<p>###集成方法—三个臭皮匠顶个诸葛亮</p>
+
+<p>一个多好的模型是具有价值的。一定要99%的成功率吗？
+并不一定，集成的思路就是找一堆臭皮匠，大家一起出谋划策。没准也能达到很好的效果。
+我们举个例子，每个臭皮匠预测明天是否下雨的准确率是0.6。那当我们找了100个独立的臭皮匠来，然后大家投票，少数服从多数。你会惊人地发现，准确率提升到了0.97以上，如果你想继续提升，找更多的臭皮匠呗。<br />
+下图是臭皮匠个数和准确率的关系曲线：<br />
+<img src="https://github.com/yuchaoqun920/nbin30s/raw/master/3/ensemble_0.6.png" alt="集成方法——0.6" /><br />
+于是我们得到一个结论：</p>
+<blockquote>
+  <p>如果你可以找到一个还过得去的解决方案，你就可以找到一个接近完美的解决方案。</p>
+</blockquote>
+
+<p>当然这个过得去的解决方案必须比随机猜测强一些，准确率大于50%，不然还不如随机猜测是吧。</p>
+
+<p>这个理论太强大了。我们拓展一下。</p>
+<blockquote>
+  <p>你在股市里，如果可以长期稳定保持在50%以上的成功率（可能至少是52%或者更高，因为要承担交易费用等潜在损失），就足够你赚钱了，而且是赚到没朋友。</p>
+</blockquote>
+
+<p>所以有人推崇高频交易，可以通过多次重复，实现复利的指数级增长。<br />
+如此看来，股市赚钱好像很容易，而大多数人的成功率都很难超过50%。即使是50%的成功率，第一次赚10%，第二次亏10%，实际只剩99%，不断重复下去也会亏得只剩下内裤。而此时的计算并没有算上交易费用。股市中还有各种内幕交易甚至操纵股价，如此随机猜测的成功率都到不了50%，长期下去哪有不亏钱的。这就相当于网络游戏中的普通玩家，而别人是人民币玩家，只有被虐的份了。<br />
+今后，越来越多的机器智能参与到股市的博弈中，他们成功率必然大于50%（必然能够赚钱才会投放市场），还可以通过集成的方法把胜率提升到99%以上。相对而言你的成功率又降低了，因为波动的市场本质是<strong>零和博弈</strong>，考虑到抽水就是负和博弈。人在这个领域与机器智能竞争，就像拿着大刀长矛跟火枪对决，不自量力了。当然这是对未来的预测，而在大多数交易者都是散户的当下，或许还是存在各种机会的。</p>
+
+<p>###高维度打击
+感知机是神经网络的基础单元，一个线性分类器。抽象理解就是在一个二维空间中画一条直线，将正例和负例分开。对于异或问题，你会发现，你无法画一条直线来直接得到正确的结果。感知机刚出现时，就是因为无法解决异或问题，沉寂了很久。后来出现了多层的感知机也就是神经网络或者深度学习。这时就可以把二维平面的异或问题映射到三维，这个时候你就可以用一个平面将其分类。我们称其为分割超平面。直线和平面的本质都是分割超平面，二维空间的超平面是直线，三维空间的超平面是平面，由此可推，四维空间的分割超平面肯定是一个三维空间。人类的大脑只能理解三维空间，对于更高维度的空间，其实我们很难理解。
+机器学习中非常机智地把线性不可分的问题映射到高维度空间，分割之后再映射回原空间。<br />
+在高维度解决问题的思想被应用于深度学习和高斯核方法等，高斯核方法相当于映射到无穷维的希尔伯特空间，将线性不可分的问题转变为可分的问题，这篇文章不讲技术，就不详细展开了。<br />
+是不是有同学想到了《三体》里的降维攻击。哈哈。非常神奇吧。
+当我们遇到束手无策的问题，或许转换一下视角（空间映射），问题可能就变得清晰可解了。更高级的做法或许是站在一个更高维度的视角，那个时候问题本身或许都不能称为问题了。<br />
+这也说明提升认知能力，训练多维度视角的重要性。</p>
+
+<p>###总结<br />
+总结一下机器学习中的人生智慧：</p>
+<blockquote>
+  <ol>
+    <li>概率视角（帮助我们更清晰分析问题，决策）</li>
+    <li>模型视角（理解学习过程，帮助我们更好学习）</li>
+    <li>集成方法（准确率大于随机猜测的解决方案就有价值了）</li>
+    <li>高维度攻击（用多维度视角解决问题）</li>
+  </ol>
+</blockquote>
+
+<p>参考：
+<a href="http://mindhacks.cn/2008/09/21/the-magical-bayesian-method/">数学之美番外篇：平凡而又神奇的贝叶斯方法</a><br />
+http://mindhacks.cn/2008/09/21/the-magical-bayesian-method/<br />
+<a href="http://www.ruanyifeng.com/blog/2011/08/bayesian_inference_part_one.html">贝叶斯推断及其互联网应用（一）：定理简介</a><br />
+http://www.ruanyifeng.com/blog/2011/08/bayesian_inference_part_one.html</p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/01/10/live-hard/" data-toggle="tooltip" data-placement="top" title="拼命活着">
+                        Previous<br>
+                        <span>拼命活着</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href=""></a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "yuchaoqunblog";
+    var disqus_identifier = "/2017/02/03/wisdom-in-machine-learning";
+    var disqus_url = "http://localhost:4000/2017/02/03/wisdom-in-machine-learning/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/chase_yee">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/yuchaoqun920">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/yuchaoqun920">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/yuchaoqun920">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yuchaoqun Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-103555393-1';
+    var _gaDomain = 'yuchaoqun.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
